@@ -1,0 +1,35 @@
+List of Files 
+
+TABLE_CREATION_SQL.sql 
+This file has been used for creating Dummy Table for Bulk Loading of USPTO & MAKG Data.
+
+TABLE_OPTIMIZATION_SQL.sql
+SQL File to optimize the table structure and enforce index on the Tables.
+
+TABLE_LOAD_EMAKG_PAPER_PATENT_RDF_LINKAGE.sql
+Sql File to load the RDF File
+
+LINKAGE_BASED_PAPER_PATENT_LINKAGE.sql
+Establishing Linkage between Author & Inventor based on paper patent mapping. 
+
+BUILT_IN_FUNCTIONS.sql
+Additional Built in Funtions used
+
+Fuzzy_Wuzzy_Between_Names.ipynb
+Name Matching and determining Similarity Scores between Names
+
+Extract_Paper_Patent_Linkage.ipynb
+
+
+LINKAGE_BASED_PAPER_NAMES.sql
+Establishing Linkage between Author & Inventor based on patent title mapping. 
+
+Jacard_Similarity_Between_Paper_Matching.ipynb
+Name Matching and determining Similarity Scores between authors post Title Matching
+
+MERGER_AND_FINDINGS.sql
+Merging to create a single dataset.
+
+Extract_Inventor_Author_Mapping.ipynb
+Final Output as CSV
+
