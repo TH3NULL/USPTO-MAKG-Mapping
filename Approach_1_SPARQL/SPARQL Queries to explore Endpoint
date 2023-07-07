@@ -1,0 +1,218 @@
+# To retrieve attributes basis paper rank
+QUERY #01
+
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX magc: <https://makg.org/class/>
+PREFIX mag: <https://makg.org/property/>
+PREFIX dcterms: <http://purl.org/dc/terms/>
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+PREFIX fabio: <http://purl.org/spar/fabio/>
+PREFIX prism: <http://prismstandard.org/namespaces/basic/2.0/>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX dbo: <http://dbpedia.org/ontology/>
+
+SELECT (STR(?paperTitle) AS ?title) ?prank (STR(?authorName) AS ?author) ?papercount (STR(?arank) AS ?arank)
+WHERE {
+  ?author mag:rank 21075 .
+  ?author mag:rank ?arank .
+  ?author mag:paperCount ?papercount .
+  ?paper dcterms:creator ?author .
+  ?paper dcterms:title ?paperTitle .
+  ?paper mag:rank ?prank .
+  ?author foaf:name ?authorName .
+  FILTER (?arank = 21075 && ?papercount = 8 && ?authorName = "Joseph Marron"^^xsd:string)
+}
+LIMIT 100
+
+
+
+
+
+# To retrieve attributes basis author name
+QUERY #02
+
+
+
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX magc: <https://makg.org/class/>
+PREFIX mag: <https://makg.org/property/>
+PREFIX dcterms: <http://purl.org/dc/terms/>
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+PREFIX fabio: <http://purl.org/spar/fabio/>
+PREFIX prism: <http://prismstandard.org/namespaces/basic/2.0/>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX dbo: <http://dbpedia.org/ontology/>
+
+SELECT (STR(?paperTitle) AS ?title) ?arank ?prank (STR(?fname) AS ?fname) (STR(?authorName) AS ?author) ?paperPubDate (STR(?patentNum) AS ?patentnumber) ?papercount ?orcidid
+WHERE {
+  ?author foaf:name "Sun-Woo Lee"^^xsd:string .
+  ?paper dcterms:creator ?author .
+  ?paper dcterms:title ?paperTitle .
+  ?paper mag:rank ?prank .
+  ?author mag:rank ?arank .
+  ?author foaf:name ?authorName .
+  ?paper fabio:hasDiscipline ?fieldofstudy .
+  ?fieldofstudy foaf:name ?fname .
+  ?paper prism:publicationDate ?paperPubDate .
+  ?author mag:paperCount ?papercount .
+  OPTIONAL {?paper fabio:hasPatentNumber ?patentNum .}
+  OPTIONAL {?author dbo:orcidId ?orcidid .}
+}
+REFERENCE 1:
+
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX magc: <https://makg.org/class/>
+PREFIX mag: <https://makg.org/property/>
+PREFIX dcterms: <http://purl.org/dc/terms/>
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+PREFIX fabio: <http://purl.org/spar/fabio/>
+PREFIX prism: <http://prismstandard.org/namespaces/basic/2.0/>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT (STR(?paperTitle) AS ?title) ?paperPubDate (STR(?patentNum) AS ?patentnumber) ?papercount
+WHERE {
+  ?author foaf:name "Joseph Marron"^^xsd:string .
+  ?paper dcterms:creator ?author .
+  ?paper dcterms:title ?paperTitle .
+  ?paper prism:publicationDate ?paperPubDate .
+  ?author mag:paperCount ?papercount .
+  OPTIONAL {?paper fabio:hasPatentNumber ?patentNum .}
+}
+
+
+
+
+
+
+
+
+
+
+REFERENCE 2:
+
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX magc: <https://makg.org/class/>
+PREFIX mag: <https://makg.org/property/>
+PREFIX dcterms: <http://purl.org/dc/terms/>
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+PREFIX fabio: <http://purl.org/spar/fabio/>
+PREFIX prism: <http://prismstandard.org/namespaces/basic/2.0/>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX dbo: <http://dbpedia.org/ontology/>
+
+SELECT (STR(?paperTitle) AS ?title) ?paperPubDate (STR(?patentNum) AS ?patentnumber) ?papercount ?orcidid
+WHERE {
+  ?author foaf:name "Joseph Marron"^^xsd:string .
+  ?paper dcterms:creator ?author .
+  ?paper dcterms:title ?paperTitle .
+  ?paper prism:publicationDate ?paperPubDate .
+  ?author mag:paperCount ?papercount .
+  OPTIONAL {?paper fabio:hasPatentNumber ?patentNum .}
+  OPTIONAL {?author dbo:orcidId ?orcidid .}
+}
+
+
+
+
+
+
+
+
+# To retrieve content for an Author
+
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX magc: <https://makg.org/class/>
+PREFIX mag: <https://makg.org/property/>
+PREFIX dcterms: <http://purl.org/dc/terms/>
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+PREFIX fabio: <http://purl.org/spar/fabio/>
+PREFIX prism: <http://prismstandard.org/namespaces/basic/2.0/>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX datacite: <https://purl.org/spar/datacite/>
+PREFIX org: <http://www.w3.org/ns/org#>
+
+
+
+SELECT (STR(?paperTitle) AS ?title) ?arank ?prank (STR(?fname) AS ?fname) (STR(?authorName) AS ?author)
+WHERE {
+  ?author foaf:name "Joseph Marron"^^xsd:string .
+  ?paper dcterms:creator ?author .
+  ?paper dcterms:title ?paperTitle .
+  ?paper mag:rank ?prank .
+  ?author mag:rank ?arank .
+  ?author foaf:name ?authorName .
+  ?paper fabio:hasDiscipline ?fieldofstudy .
+  ?fieldofstudy foaf:name ?fname .
+}
+
+
+
+
+
+
+
+
+# To retrieve content basis patent number
+QUERY # 04
+
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX magc: <https://makg.org/class/>
+PREFIX mag: <https://makg.org/property/>
+PREFIX dcterms: <http://purl.org/dc/terms/>
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+PREFIX fabio: <http://purl.org/spar/fabio/>
+PREFIX prism: <http://prismstandard.org/namespaces/basic/2.0/>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX dbo: <http://dbpedia.org/ontology/>
+PREFIX datacite: <https://purl.org/spar/datacite/>
+PREFIX org: <http://www.w3.org/ns/org#>
+
+
+SELECT (STR(?paperTitle) AS ?title) (STR(?authorName) AS ?author)
+WHERE {
+  ?paper fabio:hasPatentNumber "10000001"^^xsd:string ;
+         dcterms:creator ?author ;
+         dcterms:title ?paperTitle .
+  ?author foaf:name ?authorName .
+}
+
+
+
+
+
+
+
+
+
+
+
+# To pull more attributes for a particular author
+QUERY#05 
+
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX magc: <https://makg.org/class/>
+PREFIX dcterms: <http://purl.org/dc/terms/>
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+PREFIX fabio: <http://purl.org/spar/fabio/>
+PREFIX prism: <http://prismstandard.org/namespaces/basic/2.0/>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX schema: <https://schema.org/>
+PREFIX mag: <https://makg.org/property/>
+PREFIX datacite: <https://purl.org/spar/datacite/>
+PREFIX org: <http://www.w3.org/ns/org#>
+ 
+SELECT (STR(?authorName) AS ?AuthorName) (STR(?paperTitle) AS ?Title) ?PaperPubDate (STR(?patentNum) AS ?PatentNumber) ?pubmedID ?pubmedcentralID (STR(?issuenum) AS ?IssueNum) (STR(?keywrd) AS ?KeyWord)
+WHERE {
+?author foaf:name "John M. McCall"^^xsd:string .
+?paper dcterms:creator ?author .
+?author foaf:name ?authorName .
+?paper dcterms:title ?paperTitle .
+?paper prism:publicationDate ?PaperPubDate .
+OPTIONAL {?paper fabio:hasPatentNumber ?patentNum .}
+OPTIONAL {?paper fabio:hasPubMedId ?pubmedID . }
+OPTIONAL {?paper fabio:hasPubMedCentralId ?pubmedcentralID . }
+?paper prism:issueIdentifier ?issuenum .
+?paper prism:keyword ?keywrd .
+}
+
+
